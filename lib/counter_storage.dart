@@ -27,6 +27,7 @@ class CounterStorage {
     }
   }
 
+  // todo following methods could probably be moved to Goal
   Future<String> readText() async {
     try {
       final file = await _localFile;
@@ -47,7 +48,6 @@ class CounterStorage {
   Future<File> writeText(String text) async {
     final file = await _localFile;
     // Write the file
-    print("some $text");
     return file.writeAsString('$text');
   }
 }

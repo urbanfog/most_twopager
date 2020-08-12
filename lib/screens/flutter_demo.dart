@@ -14,11 +14,13 @@ class FlutterDemo extends StatefulWidget {
 
 class _FlutterDemoState extends State<FlutterDemo> {
   int _counter;
-  TextEditingController _controller;
+  TextEditingController _controller = TextEditingController();
   String newGoal;
 
   @override
   void initState() {
+    String existingGoal;
+
     super.initState();
     widget.storage.readCounter().then((int value) {
       setState(() {
@@ -26,12 +28,24 @@ class _FlutterDemoState extends State<FlutterDemo> {
       });
     });
 
-    widget.storage.readText().then((String goal) {
-      setState(() {
-        _controller = TextEditingController();
-        _controller.text = goal;
-      });
-    });
+    // set existing goal if any
+    widget.storage.readText().then((value) => existingGoal = value);
+
+    // move to success page automatically if a goal already exists
+    // todo once goal class implemented will need to see if present goal is complete or not to direct to correct page
+    if (existingGoal != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SuccessRoute(goal: existingGoal)));
+    }
+
+//    Commented out so that placeholder text appears instead of goal.
+//    widget.storage.readText().then((String goal) {
+//      setState(() {
+//        _controller.text = goal;
+//      });
+//    });
   }
 
   void dispose() {
@@ -73,7 +87,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
               newGoal = value;
               // todo: DONE move action from onSubmitted to set button onPressed
               // todo: move from txt to json
-              // todo: model Goal class - status: complete, incomplete
+              // todo: DONE model Goal class - status: complete, incomplete
               // todo: show dialog on set button being pressed
               // todo: update stats upon success button being pressed
               // todo: add count up timer -
