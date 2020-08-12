@@ -8,7 +8,7 @@ class SuccessRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Success"),
+        title: Text("Manage Your Success"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -61,13 +61,13 @@ class SuccessRoute extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          label: Text('Success'),
-          tooltip: 'Success',
-          icon: Icon(Icons.adjust)),
+//      floatingActionButton: FloatingActionButton.extended(
+//          onPressed: () {
+//            Navigator.pop(context);
+//          },
+//          label: Text('Success'),
+//          tooltip: 'Success',
+//          icon: Icon(Icons.adjust)),
     );
   }
 }
