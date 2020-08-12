@@ -15,6 +15,7 @@ class FlutterDemo extends StatefulWidget {
 class _FlutterDemoState extends State<FlutterDemo> {
   int _counter;
   TextEditingController _controller;
+  String newGoal;
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _FlutterDemoState extends State<FlutterDemo> {
     super.dispose();
   }
 
+  // todo: Feels like this and saveGoal could be extracted to a Goal class
   Future<File> _incrementCounter() {
     setState(() {
       _counter++;
@@ -67,8 +69,9 @@ class _FlutterDemoState extends State<FlutterDemo> {
             textInputAction: TextInputAction.done,
             maxLines: null,
             controller: _controller,
-            onSubmitted: (String value) async {
-              // todo: move action from onSubmitted to set button onPressed
+            onChanged: (String value) {
+              newGoal = value;
+              // todo: DONE move action from onSubmitted to set button onPressed
               // todo: move from txt to json
               // todo: model Goal class - status: complete, incomplete
               // todo: show dialog on set button being pressed
@@ -82,8 +85,10 @@ class _FlutterDemoState extends State<FlutterDemo> {
           onPressed: () {
             _incrementCounter();
             _saveGoal();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SuccessRoute()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SuccessRoute(goal: newGoal)));
           },
           label: Text('Set'),
           tooltip: 'Set',
